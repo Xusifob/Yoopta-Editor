@@ -85,6 +85,8 @@ const SlateEditorComponent = <TElementMap extends Record<string, SlateElement>, 
       const { attributes, ...props } = elementProps;
       attributes['data-element-type'] = props.element.type;
 
+      console.log(elementProps.element.type,ELEMENTS_MAP);
+
       if (!ElementComponent) return <DefaultElement {...props} attributes={attributes} />;
 
       return (

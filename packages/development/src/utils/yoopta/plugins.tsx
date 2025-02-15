@@ -1,6 +1,7 @@
 import Blockquote from '@yoopta/blockquote';
 import Paragraph from '@yoopta/paragraph';
 import Headings from '@yoopta/headings';
+import Badge from '../../../../plugins/badge/src';
 import Image, { ImageElementProps } from '@yoopta/image';
 import Callout, { CalloutElement } from '@yoopta/callout';
 import Lists, { TodoListElement } from '@yoopta/lists';
@@ -12,6 +13,7 @@ import Accordion, { AccordionCommands } from '@yoopta/accordion';
 import Code from '@yoopta/code';
 import Table, { TableCommands } from '@yoopta/table';
 import Divider from '@yoopta/divider';
+import HTML from '../../../../plugins/html/src'
 
 import { uploadToCloudinary } from '../cloudinary';
 import { Elements } from '@yoopta/editor';
@@ -223,6 +225,8 @@ export const YOOPTA_PLUGINS = [
       },
     },
   }),
+  Badge,
+  //HTML,
   Code.extend({
     elementProps: {
       code: (props) => ({

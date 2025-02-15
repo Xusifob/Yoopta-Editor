@@ -27,6 +27,8 @@ export function mergePlugins(plugins) {
 const ElementWrapper = ({ children, element, attributes, nodeType, render, HTMLAttributes }) => {
   const isInline = nodeType === 'inline';
 
+  console.log(nodeType,isInline,element);
+
   if (isInline) return render({ attributes, element, children });
 
   return (
@@ -50,11 +52,15 @@ const YooptaRenderer = (props: Props) => {
   const { className, data, plugins, marks } = props;
   const yooptaPlugins: any[] = useMemo(() => mergePlugins(plugins), [plugins]);
 
+  console.log(yooptaPlugins);
+
   const renderElement = useMemo(() => {
     return (props) => {
       for (let i = 0; i < yooptaPlugins.length; i++) {
         const plugin = yooptaPlugins[i];
         const renderFn = plugin.renderer.render ? plugin.renderer.render : plugin.renderer(null);
+
+        console.log(plugin, props.element.type);
 
         if (props.element.type === plugin.type) {
           return (

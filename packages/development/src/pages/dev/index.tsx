@@ -19,7 +19,7 @@ const EDITOR_STYLE = {
   width: 750,
 };
 
-const data = {
+const oldData = {
   '1e909985-9884-4a43-af3c-6aeb85434645': {
     id: '1e909985-9884-4a43-af3c-6aeb85434645',
     type: 'Paragraph',
@@ -780,6 +780,96 @@ const data = {
             text: " const nextParentPathIndex = parentPath[0] + 1;\n    const nextBlockSlateValue = slate.children[nextParentPathIndex] as SlateElement;\n\n    Transforms.removeNodes(slate, {\n      at: [nextParentPathIndex],\n      match: (n) => Element.isElement(n),\n      mode: 'highest',\n    });\n\n    operations.push({\n      type: 'split_block',\n      prevProperties: blockToSplit,\n      properties: nextNewBlock,\n      slate: newSlate,\n    });\n}",
           },
         ],
+      },
+    ],
+  },
+};
+const data = {
+  '2a05404e-be25-45ed-8164-72aa3c73004e': {
+    id: '2a05404e-be25-45ed-8164-72aa3c73004e',
+    type: 'Paragraph',
+    value: [
+      {
+        id: 'ef4b1be1-75b8-470e-a343-76c6ce95e047',
+        type: 'paragraph',
+        children: [
+          {
+            text: 'Tech’s been in the midst of',
+          },
+          {
+            type: 'badge',
+            children: [{ text: 'Approved' }],
+          },
+          {
+            text: ' ',
+          },
+          {
+            id: '476466d7-b137-4d94-8c87-5833a6295fa1',
+            type: 'link',
+            props: {
+              url: 'https://www.forbes.com/sites/emilsayegh/2024/08/19/the-great-tech-reset-unpacking-the-layoff-surge-of-2024/',
+              target: '_blank',
+              rel: 'noopener ugc nofollow',
+              title: 'a recession',
+              nodeType: 'inline',
+            },
+            children: [
+              {
+                text: 'a recession',
+              },
+            ],
+          },
+          {
+            text: ' ',
+          },
+          {
+            text: 'since the pandemic: According to',
+          },
+          {
+            text: ' ',
+          },
+          {
+            id: '983df9e2-5703-4bf1-b962-1878a42852dd',
+            type: 'link',
+            props: {
+              url: 'https://layoffs.fyi/',
+              target: '_blank',
+              rel: 'noopener ugc nofollow',
+              title: 'layoffs.fyi',
+              nodeType: 'inline',
+            },
+            children: [
+              {
+                text: 'layoffs.fyi',
+              },
+            ],
+          },
+          {
+            text: ', 470 tech companies laid off 141,000 employees in 2024. Those numbers are a bit better than what we saw in 2023 (264K layoffs total), so maybe we’re heading toward brighter days… but it’s unclear.',
+          },
+        ],
+        props: {
+          nodeType: 'block',
+        },
+      },
+    ],
+    meta: {
+      align: 'left',
+      depth: 0,
+      order: 8,
+    },
+  },
+};
+
+const htmlData = {
+  '2a05404e-be25-45ed-8164-72aa3c73004e': {
+    id: '2a05404e-be25-45ed-8164-72aa3c73004e',
+    type: 'Html',
+    value: [
+      {
+        id: 'ef4b1be1-75b8-470e-a343-76c6ce95e047',
+        type: 'html',
+        children: '<div>toto</div>',
       },
     ],
   },

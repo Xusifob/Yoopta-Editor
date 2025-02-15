@@ -41,6 +41,8 @@ export function serializeTextNodes(nodes: any[]): string {
                 text-underline-offset: 4px;">${children}</a>`;
       }
 
+      console.warn(`${node.type} is not supported`);
+
       return '';
     })
     .join('');

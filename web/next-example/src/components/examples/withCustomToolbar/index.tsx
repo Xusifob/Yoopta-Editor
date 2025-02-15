@@ -1,4 +1,4 @@
-import YooptaEditor, { createYooptaEditor } from '@yoopta/editor';
+import YooptaEditor, {createYooptaEditor, createYooptaMark} from '@yoopta/editor';
 
 import Paragraph from '@yoopta/paragraph';
 import Blockquote from '@yoopta/blockquote';
@@ -20,10 +20,29 @@ import LinkTool, { DefaultLinkToolRender } from '@yoopta/link-tool';
 
 import { uploadToCloudinary } from '@/utils/cloudinary';
 import { useMemo, useRef, useState } from 'react';
-import { MediumToolbar } from '../../Toolbars/MediumToolbar/MediumToolbar';
 import { WITH_CUSTOM_TOOLBAR_INIT_VALUE } from './initValue';
 import { NotionToolbar } from '@/components/Toolbars/NotionToolbar/NotionToolbar';
 import { CheckIcon } from 'lucide-react';
+
+const lineHeightMark = createYooptaMark({
+  type: 'lineHeight', // Unique identifier for the mark
+
+  render: ({children,leaf}) => {
+    return <span style={{ lineHeight: leaf.lineHeight.value }}>{children}</span>;
+
+  },
+});
+
+const variableMark = createYooptaMark({
+  type: 'variable', // Unique identifier for the mark
+
+
+  render: ({children,leaf}) => {
+    return (<span><span style={{border: '1px solid red'}} >{leaf.variable.value}</span>{children}</span>)
+
+  },
+});
+
 
 const plugins = [
   Paragraph,
@@ -85,7 +104,7 @@ const plugins = [
   }),
 ];
 
-const MARKS = [Bold, Italic, CodeMark, Underline, Strike, Highlight];
+const MARKS = [Bold, Italic, CodeMark, Underline, Strike, Highlight,lineHeightMark,variableMark];
 
 const DEFAULT_STATE = {
   notion: true,
@@ -99,6 +118,8 @@ function WithCustomToolbar() {
   const editor = useMemo(() => createYooptaEditor(), []);
   const selectionRef = useRef(null);
 
+  window.editor = editor;
+
   const tools = useMemo(() => {
     return {
       ActionMenu: {
@@ -106,7 +127,7 @@ function WithCustomToolbar() {
         tool: ActionMenuList,
       },
       Toolbar: {
-        render: toolbars.medium ? MediumToolbar : NotionToolbar,
+        render: NotionToolbar,
         tool: Toolbar,
       },
       LinkTool: {
@@ -121,23 +142,6 @@ function WithCustomToolbar() {
       className="md:py-[100px] md:pl-[200px] md:pr-[80px] px-[20px] pt-[80px] pb-[40px] flex justify-center flex-col items-center"
       ref={selectionRef}
     >
-      <div className="flex w-auto mb-4">
-        <button
-          className="relative mx-2 px-6 py-2 rounded text-white flex items-center"
-          style={toolbars.notion ? { backgroundColor: '#007aff' } : { backgroundColor: '#64748b' }}
-          onClick={() => setToolbars({ medium: false, notion: true })}
-        >
-          Switch to Notion toolbar
-        </button>
-        <button
-          className="relative mx-2 px-6 py-2 rounded text-white flex items-center"
-          style={toolbars.medium ? { backgroundColor: '#007aff' } : { backgroundColor: '#64748b' }}
-          onClick={() => setToolbars({ medium: true, notion: false })}
-        >
-          Switch to Medium toolbar
-          {/* {toolbars.medium && <CheckIcon size={15} className="absolute right-2 top-1/2 -translate-y-1/2" />} */}
-        </button>
-      </div>
       <YooptaEditor
         editor={editor}
         plugins={plugins}

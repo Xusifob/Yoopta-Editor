@@ -25,6 +25,9 @@ export const ParagraphCommands: ParagraphCommands = {
 
     const paragraphElement = ParagraphCommands.buildParagraphElements(editor, { text });
     const block = Blocks.buildBlockData({ value: [paragraphElement], type: 'Paragraph' });
+
+    console.log(block);
+
     Blocks.insertBlock(editor, block.type, { at, focus, blockData: block });
   },
   deleteParagraph: (editor, blockId) => {

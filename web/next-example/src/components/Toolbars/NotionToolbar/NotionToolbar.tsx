@@ -11,7 +11,7 @@ const DEFAULT_MODALS = { link: false, highlight: false, actionMenu: false };
 type ModalsState = typeof DEFAULT_MODALS;
 
 const NotionToolbar = (props: ToolbarRenderProps) => {
-  const [modals, setModals] = useState<ModalsState>({ link: false, highlight: false, actionMenu: false });
+  const [modals, setModals] = useState<ModalsState>({ link: false, highlight: false, actionMenu: false,lineHeight : false });
 
   // positioning for action menu tool
   const { refs: actionMenuRefs, floatingStyles: actionMenuStyles } = useFloating({
@@ -32,6 +32,8 @@ const NotionToolbar = (props: ToolbarRenderProps) => {
 
   const blockLabel = activeBlock?.options?.display?.title || activeBlock?.type || '';
   const ActionMenu = tools.ActionMenu;
+
+
 
   const onCloseActionMenu = () => onChangeModal('actionMenu', false);
 
@@ -59,6 +61,40 @@ const NotionToolbar = (props: ToolbarRenderProps) => {
           >
             <span className={s.block}>
               {blockLabel} <ChevronDownIcon size={12} strokeWidth={2} color="rgba(55, 53, 47, 0.35)" />
+            </span>
+            {modals.lineHeight && (
+              <FloatingPortal id="yoo-custom-toolbar-action-menu-list-portal" root={editor.refElement}>
+                <div style={{...actionMenuStyles, boxShadow: '2px 2px 2px 2px rgba(0,0,0,0.5)',backgroundColor: '#fff', borderColor: '#000',position: 'absolute',}} ref={actionMenuRefs.setFloating} onClick={(e) => e.stopPropagation()}>
+                  <button onClick={
+                    () => {
+                      editor.formats.lineHeight.update({
+                        value: 1.5
+                      })
+                    }
+                  }>Line
+                    Height 1
+                  </button>
+                  <button onClick={() => {
+                    editor.formats.lineHeight.update({
+                      value: 5
+                    })
+                  }}>Line
+                    Height 5
+                  </button>
+                </div>
+              </FloatingPortal>
+            )}
+          </button>
+        </div>
+        <div className={s.group}>
+          <button
+              type="button"
+              className={s.item}
+              ref={actionMenuRefs.setReference}
+              onClick={() => onChangeModal('lineHeight', !modals.lineHeight)}
+          >
+            <span className={s.block}>
+              Line Height <ChevronDownIcon size={12} strokeWidth={2} color="rgba(55, 53, 47, 0.35)" />
             </span>
             {modals.actionMenu && !!ActionMenu && (
               <FloatingPortal id="yoo-custom-toolbar-action-menu-list-portal" root={editor.refElement}>
@@ -97,6 +133,18 @@ const NotionToolbar = (props: ToolbarRenderProps) => {
             className={cx(s.item, { [s.active]: editor.formats.strike.isActive() })}
           >
             <span className={s.strikethrough}>S</span>
+          </button>
+          <button
+            type="button"
+            onClick={(event,a,b) => {
+
+              console.log(JSON.stringify(editor.getEditorValue()));
+
+//              editor.formats.variable.update({value : 'Variable'});
+            }}
+            className={cx(s.item)}
+          >
+            <span className={s.strikethrough}>Variable</span>
           </button>
           <button
             type="button"
